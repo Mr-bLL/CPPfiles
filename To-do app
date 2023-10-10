@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+class Node{
+public:
+Node*next;
+string data;
+};
+class Thelist{
+public:
+Node*head;
+Thelist(){
+    head=NULL;
+}
+bool isempty(){
+    return(head==NULL);
+}
+void insert(string fitem){
+    Node*newnode=new Node();
+    newnode->data=fitem;
+    if(isempty()){
+        newnode->next=NULL;
+        head=newnode;
+    }
+    else{
+        newnode->next=head;
+        head=newnode;
+    }
+}
+void append(string sitem){
+    Node*newnode=new Node();
+    newnode->data=sitem;
+    newnode->next=nullptr;
+    if(isempty()){
+        head=newnode;
+    }
+    else{
+        Node*current=head;
+        while(current->next!=NULL){
+            current=current->next;
+        }
+        current->next=newnode;
+    }
+}
+void display(){
+    int counter=0;
+    Node*current=head;
+    cout<<"To Do App";
+    while(current!=NULL){
+        counter++;
+        cout<<endl;
+        cout<<counter<<"."<<current->data<<"\t"<<endl;
+        current=current->next;
+    }
+    cout<<endl;
+}
+void deletenode(string litem){
+    Node*current=head;
+    Node*previous=head;
+    if(current->data==litem){
+        head=current->next;
+        delete current;
+        return;
+    }
+    while(current->data!=litem){
+        previous=current;
+        current=current->next;
+    }
+    previous->next=current->next;
+    delete current;
+    return;
+}
+int count(int counter){
+    Node*current=head;
+    while(current!=NULL){
+        counter++;
+        current=current->next;
+    }
+    return counter;
+}
+};
+int main(){
+    Thelist l;
+    char question;
+    cout<<"1.Add Tasks\n";
+    cout<<"2.Delete Last Tasks\n";
+    cout<<"3.Show Tasks\n";
+    while(true){
+        cout<<"answer:";
+        cin>>question;
+        if(question=='1'){
+            string itemone;
+            cout<<"Task:";
+            cin>>itemone;
+            l.append(itemone);
+        }
+        else if(question=='2'){
+            string itemtwo;
+            cout<<"Task to delete:";
+            cin>>itemtwo;
+            l.deletenode(itemtwo);
+        }
+        else if(question=='3'){
+            l.display();
+        }}
+    return 0;
+}
